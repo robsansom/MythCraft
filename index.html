@@ -7,7 +7,7 @@
   <meta name="description" content="MythCraft is a premium iOS crafting game where you rebuild Greek mythology by hand — from Chaos to the throne of Olympus. No ads. No timers. Just myth." />
   <meta property="og:title" content="MythCraft — The Rise of Olympus" />
   <meta property="og:description" content="Begin with Chaos. End with a throne. A premium iOS crafting game where every discovery is a step in the myth." />
-  <meta property="og:image" content="assets/art/title-hero.jpg" />
+  <meta property="og:image" content="assets/art/hero-wide.jpg" />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="assets/art/app-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,11 +54,14 @@
         Craft every step of Greek mythology with your own two thumbs.
       </p>
       <div class="hero-ctas">
-        <a class="btn btn-gold btn-big" href="#get">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <span><small>Coming soon to the</small>App&nbsp;Store</span>
+        <a class="btn-store" href="#get">
+          <svg class="btn-store-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span class="btn-store-text">
+            <small>Coming soon to the</small>
+            <strong>App Store</strong>
+          </span>
         </a>
-        <a class="btn btn-ghost btn-big" href="#play">See how it plays</a>
+        <a class="btn btn-gold btn-big" href="#play">See how it plays</a>
       </div>
       <p class="hero-fineprint">No ads · No energy timers · No subscription. Ever.</p>
     </div>
@@ -97,7 +100,7 @@
           <span class="combine-plus">+</span>
           <span class="mini-chip"><img src="assets/chips/cronus.png" alt="" /><b>Cronus</b></span>
           <span class="combine-eq">=</span>
-          <span class="mini-chip is-result is-pivotal"><img src="assets/chips/titanomachy.png" alt="" /><b>Titanomachy</b></span>
+          <span class="mini-chip is-mystery"><span class="mystery-mark">?</span><b>Find out</b></span>
         </div>
       </div>
 
@@ -239,8 +242,10 @@
     <h2 class="section-title slab-text light centered">EVERY LEGEND, HAND-DRAWN.<br />EVERY LINE, HAND-WRITTEN.</h2>
     <p class="section-lede light centered">Hover a chip. The Codex has opinions about everyone.</p>
 
-    <div class="marquee" id="marquee-1"></div>
-    <div class="marquee marquee-reverse" id="marquee-2"></div>
+    <div class="marquee-window">
+      <div class="marquee" id="marquee-1"></div>
+      <div class="marquee marquee-reverse" id="marquee-2"></div>
+    </div>
 
     <div class="codex-card" id="codex-card" aria-live="polite">
       <img id="codex-card-img" src="assets/chips/zeus.png" alt="" />
@@ -255,17 +260,17 @@
   <section class="promises">
     <div class="container promises-grid">
       <div class="promise" data-reveal>
-        <span class="promise-icon">🏛️</span>
+        <img class="promise-art" src="assets/chips/olympus.png" alt="Olympus" />
         <h3 class="slab-text">PREMIUM MEANS PREMIUM</h3>
         <p>No ads. No energy bars. No login. No “gems.” You buy a Book, it's yours — like an actual book.</p>
       </div>
       <div class="promise" data-reveal>
-        <span class="promise-icon">🤫</span>
+        <img class="promise-art" src="assets/chips/nyx.png" alt="Nyx" />
         <h3 class="slab-text">YOUR MYTH STAYS YOURS</h3>
         <p>Everything runs on your device. No accounts, no tracking, no data offered to any god, old or new.</p>
       </div>
       <div class="promise" data-reveal>
-        <span class="promise-icon">📖</span>
+        <img class="promise-art" src="assets/chips/hermes.png" alt="Hermes" />
         <h3 class="slab-text">REAL MYTHOLOGY, REAL SASS</h3>
         <p>Faithful to Hesiod where it counts, funny where it helps. Serious spine, mischievous fringe.</p>
       </div>
@@ -276,13 +281,16 @@
   <section class="finale" id="get">
     <div class="finale-art" aria-hidden="true"></div>
     <div class="finale-content">
-      <h2 class="arc-title arc-small" data-arc>OLYMPUS AWAITS</h2>
+      <h2 class="finale-title slab-text">OLYMPUS AWAITS</h2>
       <p class="finale-copy">
         The cosmos won't build itself. Actually — it will. But it'd rather you did it.
       </p>
-      <a class="btn btn-gold btn-big" href="#top">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <span><small>Coming soon to the</small>App&nbsp;Store</span>
+      <a class="btn-store" href="#top">
+        <svg class="btn-store-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span class="btn-store-text">
+          <small>Coming soon to the</small>
+          <strong>App Store</strong>
+        </span>
       </a>
       <p class="finale-note">Launching with Book I: The Rise of Olympus · Chapter 1 free</p>
     </div>

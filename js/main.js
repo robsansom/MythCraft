@@ -3,21 +3,52 @@
    the game's authored StarterContent, so the site demo is the game. */
 
 // ───────────────────────── Arc logotype ─────────────────────────
-// Per-glyph rotation along a circle — the web port of MythArcTitle.
-document.querySelectorAll("[data-arc]").forEach((el) => {
-  const text = el.textContent.trim();
-  el.textContent = "";
+// Direct port of the game's MythArcTitle: each glyph's centre is measured
+// with the real display font, then swept along a large circle so the middle
+// of the word crests above the ends. Rotation and lift both derive from the
+// same circle, which is what keeps every glyph on the arc (the previous
+// approximation drifted on wide glyphs like M and T).
+const arcMeasure = document.createElement("canvas").getContext("2d");
+
+function buildArc(el) {
+  const text = el.dataset.arcText || (el.dataset.arcText = el.textContent.trim());
+  const size = parseFloat(getComputedStyle(el).fontSize);
+  const radius = size * 4.45; // the game uses radius 280 at 63pt
+  arcMeasure.font = `400 ${size}px "Lilita One", sans-serif`;
+
   const glyphs = [...text];
-  const mid = (glyphs.length - 1) / 2;
-  const degPerGlyph = 4.6;
+  const widths = glyphs.map((g) => arcMeasure.measureText(g === " " ? "\u00A0" : g).width);
+  const total = widths.reduce((a, b) => a + b, 0);
+  const maxAngle = total / 2 / radius;
+  const drop = radius * (1 - Math.cos(maxAngle));
+
+  el.textContent = "";
+  let cursor = 0;
   glyphs.forEach((ch, i) => {
+    const center = cursor + widths[i] / 2;
+    cursor += widths[i];
+    const angle = (center - total / 2) / radius;
     const span = document.createElement("span");
     span.textContent = ch === " " ? "\u00A0" : ch;
-    const angle = (i - mid) * degPerGlyph;
-    const lift = Math.cos(((i - mid) / mid || 0) * (Math.PI / 2));
-    span.style.transform = `rotate(${angle}deg) translateY(${-lift * 0.22}em)`;
+    span.style.transform =
+      `translateY(${(radius - Math.cos(angle) * radius - drop / 2).toFixed(2)}px) ` +
+      `rotate(${angle.toFixed(4)}rad)`;
     el.appendChild(span);
   });
+}
+
+function buildAllArcs() {
+  document.querySelectorAll("[data-arc]").forEach(buildArc);
+}
+
+// Wait for Lilita One so glyph measurement uses the real metrics, and
+// rebuild on resize because the font size is responsive.
+document.fonts.ready.then(buildAllArcs);
+buildAllArcs();
+let arcResizeTimer;
+addEventListener("resize", () => {
+  clearTimeout(arcResizeTimer);
+  arcResizeTimer = setTimeout(buildAllArcs, 150);
 });
 
 // ───────────────────────── Nav scroll state ─────────────────────────
@@ -48,37 +79,46 @@ const chips = {
   storm:       { name: "Storm",       img: "storm" },
   fire:        { name: "Fire",        img: "fire" },
   fate:        { name: "Fate",        img: "fate" },
-  gaia:        { name: "Gaia",        img: "gaia" },
-  uranus:      { name: "Uranus",      img: "uranus" },
-  nyx:         { name: "Nyx",         img: "nyx" },
-  eros:        { name: "Eros",        img: "eros" },
-  tartarus:    { name: "Tartarus",    img: "tartarus" },
-  titans:      { name: "Titans",      img: "titans" },
-  cronus:      { name: "Cronus",      img: "cronus" },
-  cyclopes:    { name: "Cyclopes",    img: "cyclopes" },
-  sickle:      { name: "Sickle",      img: "sickle" },
-  zeus:        { name: "Zeus",        img: "zeus" },
-  thunderbolt: { name: "Thunderbolt", img: "thunderbolt" },
-  titanomachy: { name: "Titanomachy", img: "titanomachy" },
+  gaia:          { name: "Gaia",          img: "gaia" },
+  uranus:        { name: "Uranus",        img: "uranus" },
+  nyx:           { name: "Nyx",           img: "nyx" },
+  eros:          { name: "Eros",          img: "eros" },
+  pontus:        { name: "Pontus",        img: "pontus" },
+  tartarus:      { name: "Tartarus",      img: "tartarus" },
+  titans:        { name: "Titans",        img: "titans" },
+  cronus:        { name: "Cronus",        img: "cronus" },
+  rhea:          { name: "Rhea",          img: "rhea" },
+  cyclopes:      { name: "Cyclopes",      img: "cyclopes" },
+  hecatoncheires:{ name: "Hecatoncheires",img: "hecatoncheires" },
+  sickle:        { name: "Sickle",        img: "sickle" },
+  zeus:          { name: "Zeus",          img: "zeus" },
+  thunderbolt:   { name: "Thunderbolt",   img: "thunderbolt" },
+  titanomachy:   { name: "Titanomachy",   img: "titanomachy" },
 };
 
 // Starter rack — the eight primordial forces, as in the game.
 const starterRack = ["chaos", "earth", "sky", "sea", "night", "storm", "fire", "fate"];
 
 // key: alphabetically sorted pair → result chip id + verdict line.
+// These mirror the game's authored Chapter 1 spine (StarterContent.swift),
+// with one demo shortcut: Zeus arrives from Cronus + Rhea (his actual
+// parents) instead of the full hidden-child chain.
 const recipes = {
-  "chaos|earth":    { result: "gaia",        lore: "Mother of everything, grudge-holder of note. Cross her children and she remembers, for eons." },
-  "chaos|night":    { result: "nyx",         lore: "The one primordial the king of the gods won't pick a fight with. Take the hint." },
-  "chaos|fire":     { result: "eros",        lore: "Older than the gods and pettier than all of them. Nearly every disaster in this story started with a crush." },
-  "earth|night":    { result: "tartarus",    lore: "Rock bottom, and then keep digging." },
-  "earth|sky":      { result: "uranus",      lore: "Father of the Titans and a deeply unpleasant landlord. His children did not take it well." },
-  "gaia|uranus":    { result: "titans",      lore: "The first ruling family. Enormous, powerful, and absolutely terrible at parenting." },
-  "gaia|storm":     { result: "cyclopes",    lore: "One eye each, zero patience, excellent with a forge. Keep them on your side." },
-  "fate|titans":    { result: "cronus",      lore: "Overthrew his dad, then ate his own kids to avoid the karma. It did not work. It never does." },
-  "gaia|tartarus":  { result: "sickle",      lore: "Forged by a furious mother for one specific, unforgivable job. Uranus should have been kinder." },
-  "cronus|fate":    { result: "zeus",        lore: "The youngest, loudest, and most thunderbolt-prone of the family. About to make it everyone's problem." },
-  "cyclopes|zeus":  { result: "thunderbolt", lore: "A gift from the Cyclopes and the original 'we'll discuss this later.' There is no later." },
-  "cronus|zeus":    { result: "titanomachy", lore: "The war of gods and Titans. You may want to stand back.", clash: true },
+  "chaos|earth":           { result: "gaia",           lore: "Mother of everything, grudge-holder of note. Cross her children and she remembers, for eons." },
+  "chaos|night":           { result: "nyx",            lore: "The one primordial the king of the gods won't pick a fight with. Take the hint." },
+  "chaos|fire":            { result: "eros",           lore: "Older than the gods and pettier than all of them. Nearly every disaster in this story started with a crush." },
+  "earth|sea":             { result: "pontus",         lore: "The sea before there was a god to run it, all depth, no management." },
+  "earth|night":           { result: "tartarus",       lore: "Rock bottom, and then keep digging. It's where you put the losers you really don't want crawling back." },
+  "earth|sky":             { result: "uranus",         lore: "Father of the Titans and a deeply unpleasant landlord. His children did not take it well." },
+  "gaia|uranus":           { result: "titans",         lore: "The first ruling family. Enormous, powerful, and absolutely terrible at parenting." },
+  "gaia|storm":            { result: "cyclopes",       lore: "One eye each, zero patience, excellent with a forge. Keep them on your side." },
+  "gaia|tartarus":         { result: "hecatoncheires", lore: "A hundred hands, fifty heads, and precisely one grudge. Uranus locked them away. Remember that." },
+  "fate|titans":           { result: "cronus",         lore: "Overthrew his dad, then ate his own kids to avoid the karma. It did not work. It never does." },
+  "earth|titans":          { result: "rhea",           lore: "Watched her husband swallow five children, then quietly handed him a rock for the sixth. Mothers find a way." },
+  "gaia|hecatoncheires":   { result: "sickle",         lore: "Forged by a furious mother for one specific, unforgivable job. Uranus should have been kinder." },
+  "cronus|rhea":           { result: "zeus",           lore: "The youngest, loudest, and most thunderbolt-prone of the family. About to make it everyone's problem." },
+  "cyclopes|zeus":         { result: "thunderbolt",    lore: "A gift from the Cyclopes and the original 'we'll discuss this later.' There is no later." },
+  "cronus|zeus":           { result: "titanomachy",    lore: "The war of gods and Titans. You may want to stand back.", clash: true },
 };
 
 const blockedLines = [
