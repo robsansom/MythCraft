@@ -1,4 +1,4 @@
-/* MythCraft landing page — interactions.
+/* MythCraft landing page - interactions.
    Recipes and lore below are lifted from (or written in the voice of)
    the game's authored StarterContent, so the site demo is the game. */
 
@@ -17,21 +17,36 @@ function buildArc(el) {
   arcMeasure.font = `400 ${size}px "Lilita One", sans-serif`;
 
   const glyphs = [...text];
-  const widths = glyphs.map((g) => arcMeasure.measureText(g === " " ? "\u00A0" : g).width);
-  const total = widths.reduce((a, b) => a + b, 0);
+  const measure = (s) => arcMeasure.measureText(s === " " ? "\u00A0" : s).width;
+  const widths = glyphs.map(measure);
+  // Per-glyph measurement loses the font's kerning pairs (M drifted away
+  // from Y). The pair advance minus the two solo advances is exactly the
+  // kern, so fold it into the cursor as we walk the word.
+  const centers = [];
+  let cursor = 0;
+  glyphs.forEach((ch, i) => {
+    if (i > 0) {
+      cursor += measure(glyphs[i - 1] + ch) - widths[i - 1] - widths[i];
+    }
+    centers.push(cursor + widths[i] / 2);
+    cursor += widths[i];
+  });
+  const total = cursor;
   const maxAngle = total / 2 / radius;
   const drop = radius * (1 - Math.cos(maxAngle));
 
   el.textContent = "";
-  let cursor = 0;
   glyphs.forEach((ch, i) => {
-    const center = cursor + widths[i] / 2;
-    cursor += widths[i];
-    const angle = (center - total / 2) / radius;
+    const angle = (centers[i] - total / 2) / radius;
+    // The game places each glyph's centre at sin(angle)·radius from the word
+    // centre - slightly inside its straight-line position for the outer
+    // glyphs (sin θ < θ). Without this the M and T drift outward and leave
+    // a gap against their neighbours.
+    const dx = Math.sin(angle) * radius - (centers[i] - total / 2);
     const span = document.createElement("span");
     span.textContent = ch === " " ? "\u00A0" : ch;
     span.style.transform =
-      `translateY(${(radius - Math.cos(angle) * radius - drop / 2).toFixed(2)}px) ` +
+      `translate(${dx.toFixed(2)}px, ${(radius - Math.cos(angle) * radius - drop / 2).toFixed(2)}px) ` +
       `rotate(${angle.toFixed(4)}rad)`;
     el.appendChild(span);
   });
@@ -96,7 +111,7 @@ const chips = {
   titanomachy:   { name: "Titanomachy",   img: "titanomachy" },
 };
 
-// Starter rack — the eight primordial forces, as in the game.
+// Starter rack - the eight primordial forces, as in the game.
 const starterRack = ["chaos", "earth", "sky", "sea", "night", "storm", "fire", "fate"];
 
 // key: alphabetically sorted pair → result chip id + verdict line.
@@ -126,7 +141,7 @@ const blockedLines = [
   "The Oracle squints at your offering. \u201CBold. Wrong, but bold.\u201D",
   "Nothing happens. Somewhere, an owl judges you.",
   "The myth does not go this way. The myth has standards.",
-  "Zeus checked. It's not canon. He would know — most of it is his fault.",
+  "Zeus checked. It's not canon. He would know. Most of it is his fault.",
 ];
 
 const rackEl = document.getElementById("oracle-rack");
@@ -204,7 +219,7 @@ function showResult(recipe) {
   resultEl.classList.remove("blocked");
   resultEl.classList.add("filled");
   resultEl.innerHTML = `<img src="assets/chips/${chip.img}.png" alt="${chip.name}" /><b>${chip.name}</b>`;
-  verdictEl.textContent = `${chip.name} — ${recipe.lore}`;
+  verdictEl.textContent = `${chip.name}: ${recipe.lore}`;
   verdictEl.className = "oracle-verdict success";
 
   if (!unlocked.has(recipe.result)) {
@@ -223,8 +238,8 @@ function clearTable() {
   selection = [];
   slotA.className = "oracle-slot";
   slotB.className = "oracle-slot";
-  slotA.innerHTML = `<span class="slot-hint">Pick a chip</span>`;
-  slotB.innerHTML = `<span class="slot-hint">Pick another</span>`;
+  slotA.innerHTML = `<span class="slot-hint">${t("oracle.pick") || "Pick a chip"}</span>`;
+  slotB.innerHTML = `<span class="slot-hint">${t("oracle.pickAnother") || "Pick another"}</span>`;
   resultEl.className = "oracle-result";
   resultEl.innerHTML = `<span class="slot-hint">?</span>`;
   releaseRack();
@@ -233,7 +248,7 @@ function clearTable() {
 resetBtn.addEventListener("click", () => {
   unlocked = new Set(starterRack);
   clearTable();
-  verdictEl.textContent = "The table is set. The gods are watching.";
+  verdictEl.textContent = t("oracle.tableSet") || "The table is set. The gods are watching.";
   verdictEl.className = "oracle-verdict";
   renderRack();
 });
@@ -291,7 +306,7 @@ const codexLore = {
   prometheus:  "Stole fire, gave it to mortals, got an eternity of liver trouble. Still says it was worth it.",
   pandora:     "Given one box and one instruction. You know exactly what happened next.",
   thunderbolt: "A gift from the Cyclopes and the original 'we'll discuss this later.' There is no later.",
-  olympus:     "The penthouse of the cosmos. Earned, never crafted. The view is to die for — many did.",
+  olympus:     "The penthouse of the cosmos. Earned, never crafted. The view is to die for. Many did.",
   titanomachy: "Ten years of war between gods and Titans. The sky kept the receipts.",
   chaos:       "Before anything, there was this. No light, no shape, no rules. Honestly, the good old days.",
   nyx:         "Older than the stars and entirely unbothered by them. Best not to wake her.",

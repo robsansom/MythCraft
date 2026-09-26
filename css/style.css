@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   MythCraft — landing page
+   MythCraft - landing page
    "Olympus Day" theme, ported 1:1 from the app's Theme.swift:
    Aegean sky blues · ink-navy outlines · hard slab shadows ·
    sun-gold CTAs · Lilita One display / Nunito body.
@@ -8,7 +8,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Palette — mirrors Myth.* tokens in the app */
+  /* Palette - mirrors Myth.* tokens in the app */
   --aegean-900: #16337a;
   --aegean-700: #2557d6;
   --aegean-500: #3d8bff;
@@ -123,7 +123,7 @@ img { display: block; max-width: 100%; }
 .section-lede em { font-style: italic; font-weight: 800; color: var(--ink-700); }
 .section-lede.light em { color: var(--sun-300); }
 
-/* Arc title — the box-art logotype curve. Glyph sweep (rotation + lift on a
+/* Arc title - the box-art logotype curve. Glyph sweep (rotation + lift on a
    shared circle) is computed by JS from measured font metrics, mirroring the
    game's MythArcTitle. Vertical padding gives the crest and the dropped ends
    room, since transforms don't affect layout. */
@@ -149,7 +149,7 @@ img { display: block; max-width: 100%; }
      0    7px 0 var(--ink-900);
 }
 
-/* ─────────────── Buttons — sticker construction ─────────────── */
+/* ─────────────── Buttons - sticker construction ─────────────── */
 
 .btn {
   display: inline-flex;
@@ -196,7 +196,7 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 3.5px 0 var(--ink-900);
 }
 
-/* App Store badge — the canonical black store badge, rebuilt with the
+/* App Store badge - the canonical black store badge, rebuilt with the
    sticker construction: ink face, gold rim light, hard slab shadow. */
 .btn-store {
   display: inline-flex;
@@ -311,6 +311,31 @@ img { display: block; max-width: 100%; }
 }
 .nav-links a:hover { color: var(--sun-300); }
 
+/* Language switcher + CTA cluster */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--marble-100);
+  background: rgba(27, 35, 64, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 7px 26px 7px 12px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ffd84d' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.lang-select:hover { border-color: var(--sun-300); }
+.lang-select option { color: var(--ink-900); }
+
 /* ─────────────── Hero ─────────────── */
 
 .hero {
@@ -333,7 +358,7 @@ img { display: block; max-width: 100%; }
     background: url("../assets/art/title-hero.jpg") center 20% / cover no-repeat;
   }
 }
-/* Slow Ken Burns drift — barely perceptible, keeps the sky alive. */
+/* Slow Ken Burns drift - barely perceptible, keeps the sky alive. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-art {
     animation: hero-drift 26s ease-in-out infinite alternate;
@@ -362,7 +387,7 @@ img { display: block; max-width: 100%; }
   animation: bob 5s ease-in-out infinite;
   z-index: 2;
 }
-/* Kept to the open left sky — Zeus owns the right of the key art. */
+/* Kept to the open left sky - Zeus owns the right of the key art. */
 .fc-1 { top: 15%; left: 7%; animation-delay: 0s; rotate: -12deg; }
 .fc-2 { top: 38%; left: 13%; animation-delay: -1.6s; rotate: 10deg; width: clamp(48px, 5.5vw, 84px); }
 .fc-3 { top: 62%; left: 5%; animation-delay: -3.1s; rotate: 8deg; width: clamp(52px, 6vw, 90px); }
@@ -396,7 +421,7 @@ img { display: block; max-width: 100%; }
     -2px -2px 0 var(--ink-900), 2px -2px 0 var(--ink-900),
     -2px  2px 0 var(--ink-900), 2px  2px 0 var(--ink-900),
     0 4px 0 var(--ink-900);
-  margin: 4px 0 22px;
+  margin: -6px 0 22px; /* tucked closer under the arc title, matching the app */
 }
 .hero-tagline {
   font-size: clamp(17px, 2vw, 21px);
@@ -421,7 +446,7 @@ img { display: block; max-width: 100%; }
   text-shadow: 0 1.5px 0 rgba(27, 35, 64, 0.7);
 }
 
-/* Greek-key band closing the hero — the app's GreekKeyBand cornice */
+/* Greek-key band closing the hero - the app's GreekKeyBand cornice */
 .hero-wave {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -475,7 +500,7 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(180deg, #ffe9a8, var(--sun-500));
   animation: pivotal-pulse 2.2s ease-in-out infinite;
 }
-/* The unanswered combine — a glowing question mark instead of a spoiler. */
+/* The unanswered combine - a glowing question mark instead of a spoiler. */
 .mini-chip.is-mystery {
   background: linear-gradient(180deg, var(--ink-500), var(--ink-700));
   color: var(--sun-300);
@@ -660,7 +685,7 @@ img { display: block; max-width: 100%; }
 
 .oracle-reset { font-family: var(--font-body); font-weight: 900; }
 
-/* Clash overlay — the web nod to ArchonClashView */
+/* Clash overlay - the web nod to ArchonClashView */
 .clash-overlay {
   position: fixed;
   inset: 0;
@@ -881,7 +906,7 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(180deg, rgba(0, 39, 133, 0.55), rgba(27, 35, 64, 0.25) 45%, rgba(27, 35, 64, 0.6));
 }
 .finale-content { position: relative; z-index: 2; }
-/* Straight logotype treatment — same slab construction as the game's
+/* Straight logotype treatment - same slab construction as the game's
    MythTitle, no arc, no slant. */
 .finale-title {
   font-size: clamp(40px, 6.5vw, 76px);
