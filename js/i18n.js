@@ -63,6 +63,8 @@ const I18N = {
     "finale.copy": "Le cosmos ne se bâtira pas tout seul. En fait, si. Mais il préférerait que ce soit vous.",
     "finale.note": "Lancement avec le Livre I : L’Ascension de l’Olympe · Chapitre 1 gratuit",
     "footer.legal": "© 2026 MythCraft. Les mythes appartiennent à tous ; ce récit-ci nous appartient.<br />Sans affiliation avec aucun Olympien, régnant ou renversé.",
+    "footer.privacy": "Confidentialité",
+    "footer.support": "Assistance",
     "footer.contact": "Contact",
     "meta.title": "MythCraft : L’Ascension de l’Olympe | Forgez la mythologie grecque, légende après légende",
     "meta.description": "MythCraft est un jeu de création premium sur iOS où vous rebâtissez la mythologie grecque à la main, du Chaos au trône de l’Olympe. Sans pub. Sans minuteurs. Rien que le mythe."
@@ -125,6 +127,8 @@ const I18N = {
     "finale.copy": "Der Kosmos baut sich nicht von selbst. Eigentlich, doch. Aber lieber wäre ihm, du tust es.",
     "finale.note": "Start mit Buch I: Der Aufstieg des Olymp · Kapitel 1 gratis",
     "footer.legal": "© 2026 MythCraft. Alle Mythen gehören allen; diese Erzählung gehört uns.<br />Keine Verbindung zu irgendeinem Olympier, ob regierend oder gestürzt.",
+    "footer.privacy": "Datenschutz",
+    "footer.support": "Support",
     "footer.contact": "Kontakt",
     "meta.title": "MythCraft: Der Aufstieg des Olymp | Erschaffe die griechische Mythologie, Legende für Legende",
     "meta.description": "MythCraft ist ein Premium-Crafting-Spiel für iOS, in dem du die griechische Mythologie von Hand neu errichtest, vom Chaos bis zum Thron des Olymp. Keine Werbung. Keine Timer. Nur Mythos."
@@ -187,6 +191,8 @@ const I18N = {
     "finale.copy": "El cosmos no se construirá solo. En realidad, sí. Pero preferiría que lo hicieras tú.",
     "finale.note": "Lanzamiento con el Libro I: El ascenso del Olimpo · Capítulo 1 gratis",
     "footer.legal": "© 2026 MythCraft. Los mitos pertenecen a todos; este relato nos pertenece a nosotros.<br />Sin afiliación con ningún olímpico, reinante o derrocado.",
+    "footer.privacy": "Privacidad",
+    "footer.support": "Soporte",
     "footer.contact": "Contacto",
     "meta.title": "MythCraft: El ascenso del Olimpo | Forja la mitología griega, leyenda a leyenda",
     "meta.description": "MythCraft es un juego de creación premium para iOS donde reconstruyes la mitología griega a mano, del Caos al trono del Olimpo. Sin anuncios. Sin temporizadores. Solo mito."
@@ -249,6 +255,8 @@ const I18N = {
     "finale.copy": "宇宙は勝手に組み上がったりしない。いや、実は組み上がる。でも、あなたにやってほしいそうだ。",
     "finale.note": "第一巻「オリンポスの興隆」でローンチ · 第1章は無料",
     "footer.legal": "© 2026 MythCraft. 神話はみんなのもの。この語りは私たちのもの。<br />現役・失脚を問わず、いかなるオリンポス神とも提携していません。",
+    "footer.privacy": "プライバシー",
+    "footer.support": "サポート",
     "footer.contact": "お問い合わせ",
     "meta.title": "MythCraft: オリンポスの興隆 | ギリシャ神話を、伝説ひとつずつ紡ぎ直す",
     "meta.description": "MythCraftは、カオスからオリンポスの玉座まで、ギリシャ神話を自分の手で紡ぎ直すiOSのプレミアムクラフトゲーム。広告なし。タイマーなし。あるのは神話だけ。"
